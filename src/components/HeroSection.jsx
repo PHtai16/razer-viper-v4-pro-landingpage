@@ -1,37 +1,35 @@
 import React from 'react';
 
-// TODO: Sau này, hãy đặt ảnh sản phẩm vào 'src/assets/images/'
-// và import vào đây, ví dụ: import heroImage from '../assets/images/viper-v4-pro.png';
-
 const HeroSection = () => {
   return (
-    <section className="bg-black text-white min-h-screen flex flex-col justify-center items-center text-center relative overflow-hidden">
-      {/* Hiệu ứng ánh sáng xanh đặc trưng của Razer */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vh] bg-green-500/30 rounded-full blur-[150px] z-0"></div>
-
-      <div className="relative z-10 flex flex-col items-center p-4">
-        {/* 
-          PHẦN HIỂN THỊ ẢNH SẢN PHẨM
-          - Thay thế thẻ div này bằng thẻ <img /> của bạn.
-          - Ví dụ: <img src={heroImage} alt="Razer Viper V4 Pro" className="max-w-sm md:max-w-md mb-8" />
-        */}
-        <div className="max-w-sm md:max-w-md mb-8 h-[200px] flex items-center justify-center">
-            <p className="text-gray-400 italic">Ảnh chuột Razer Viper V4 Pro sẽ hiển thị ở đây</p>
-        </div>
-
-        <p className="text-green-400 font-semibold tracking-widest mb-2">RAZER VIPER V4 PRO</p>
-        <h1 className="text-4xl md:text-7xl font-extrabold tracking-tighter mb-4 uppercase">
-          For The Pro
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-section-gap px-margin-mobile md:px-gutter">
+      {/* Backglow */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+        <div className="w-[600px] h-[600px] hero-backglow rounded-full blur-3xl"></div>
+      </div>
+      <div className="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center">
+        <h1 className="font-display-xl text-display-xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-fixed mb-6">
+          RAZER VIPER V4 PRO
         </h1>
-        <p className="max-w-2xl text-gray-300 mb-8">
-          Chuột gaming esports đỉnh cao được tái định nghĩa. Siêu nhẹ, trang bị công nghệ tiên tiến nhất, được thiết kế cùng với các game thủ chuyên nghiệp hàng đầu thế giới.
+        <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-12">
+          Thống trị mọi giải đấu với trọng lượng siêu nhẹ 54g và cảm biến 35K. Sự kết hợp hoàn hảo giữa thiết kế công thái học và công nghệ không dây độ trễ thấp.
         </p>
+        <div className="w-full max-w-2xl mb-16 relative">
+          <img 
+            alt="Razer Viper V4 Pro" 
+            className="w-full h-auto object-contain drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500 ease-out" 
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDzK_wvkPPj-trxsXnk4sQsbinlwk5MS1CA_ZK4bR4LsZV2bGtSS7gWE8ZbN5H6CBwvlDPh7ez5yUVlMoxA9gvQdp61YGlPYfGLgHG6BGxfuIv756xroLnPfKjRTL6W-2DI4pnZpNkQHtMPgRvPc6FVTzrFcNHCkJvHTLfJrckx6XJMCRrzPVkb5C-XiAEIQ9Q8-IfDuM7J_uisHLJL1LbLaLf3xiYiFYsxmNNCMZX8FKjxkVvwLmY8ViWuND_KjiozTSBD5EhPYsX"
+            loading="lazy"
+            width="1024"
+            height="512"
+          />
+        </div>
         <div className="flex flex-col sm:flex-row gap-4">
-          <button className="bg-green-500 text-black font-bold py-3 px-8 rounded hover:bg-green-400 transition-colors duration-300">
+          <button className="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-4 rounded uppercase hover:bg-primary-fixed transition-colors tracking-widest razer-glow">
             Mua Ngay
           </button>
-          <button className="border border-gray-700 bg-black bg-opacity-50 text-white font-bold py-3 px-8 rounded hover:bg-gray-800 transition-colors duration-300">
-            Khám Phá
+          <button className="border border-primary text-primary bg-transparent font-label-caps text-label-caps px-8 py-4 rounded uppercase hover:bg-primary/10 transition-colors tracking-widest">
+            Xem Chi Tiết
           </button>
         </div>
       </div>

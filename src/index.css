@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+}
+
+@layer utilities {
+  .razer-glow {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+  }
+  .hero-backglow {
+    background: radial-gradient(circle at center, rgba(2, 230, 0, 0.15) 0%, transparent 60%);
+  }
+}

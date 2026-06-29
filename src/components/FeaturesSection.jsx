@@ -1,53 +1,32 @@
 import React from 'react';
 
-const features = [
-  {
-    title: 'Mắt Đọc Quang Học Razer™ Focus Pro 35K Gen-2',
-    description: 'Độ chính xác tuyệt đối với công nghệ mắt đọc thông minh, đảm bảo mọi chuyển động của bạn được ghi lại một cách hoàn hảo.',
-    icon: '🎯', // Placeholder icon
-  },
-  {
-    title: 'Polling Rate Thực 8000Hz',
-    description: 'Phản hồi siêu tốc với độ trễ gần như bằng không, mang lại lợi thế cạnh tranh trong các trận đấu đỉnh cao.',
-    icon: '⚡️', // Placeholder icon
-  },
-  {
-    title: 'Thiết Kế Siêu Nhẹ 54g',
-    description: 'Di chuyển chuột nhanh và dễ dàng hơn bao giờ hết, giảm mỏi tay và tối ưu hóa cho những pha xử lý tốc độ cao.',
-    icon: '🕊️', // Placeholder icon
-  },
-];
-
 const FeaturesSection = () => {
   return (
-    <div className="bg-black py-20 sm:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-green-400">HIỆU NĂNG VƯỢT TRỘI</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Tất cả những gì bạn cần để chiến thắng
-          </p>
-          <p className="mt-6 text-lg leading-8 text-gray-300">
-            Được trang bị những công nghệ tiên tiến nhất, Razer Viper V4 Pro là vũ khí tối thượng cho mọi game thủ chuyên nghiệp.
-          </p>
-        </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {features.map((feature) => (
-              <div key={feature.title} className="flex flex-col p-6 rounded-lg border border-gray-800 hover:border-green-500/50 hover:bg-gray-900/50 transition-all duration-300">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
-                  <span className="text-2xl">{feature.icon}</span>
-                  {feature.title}
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-400">
-                  <p className="flex-auto">{feature.description}</p>
-                </dd>
-              </div>
-            ))}
-          </dl>
+    <section className="py-section-gap px-margin-mobile md:px-gutter bg-surface-container-lowest border-t border-surface-variant" id="features">
+      <div className="max-w-container-max mx-auto">
+        <h2 className="font-headline-lg text-headline-lg mb-16 text-center text-on-surface">Công Nghệ Đỉnh Cao</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Feature Card 1 */}
+          <div className="bg-surface-container-low border border-surface-variant p-8 rounded hover:border-primary/50 transition-colors group">
+            <span className="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">precision_manufacturing</span>
+            <h3 className="font-headline-md text-[24px] leading-8 font-semibold mb-4 text-on-surface">Cảm biến Focus Pro 35K</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">Cảm biến quang học Gen-2 tiên tiến nhất, theo dõi từng chuyển động pixel hoàn hảo trên mọi bề mặt, kể cả kính.</p>
+          </div>
+          {/* Feature Card 2 */}
+          <div className="bg-surface-container-low border border-surface-variant p-8 rounded hover:border-primary/50 transition-colors group">
+            <span className="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">bolt</span>
+            <h3 className="font-headline-md text-[24px] leading-8 font-semibold mb-4 text-on-surface">HyperPolling 8000Hz</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">Tốc độ phản hồi cực nhanh, truyền tín hiệu gấp 8 lần so với chuột thông thường, loại bỏ hoàn toàn độ trễ.</p>
+          </div>
+          {/* Feature Card 3 */}
+          <div className="bg-surface-container-low border border-surface-variant p-8 rounded hover:border-primary/50 transition-colors group">
+            <span className="material-symbols-outlined text-4xl text-primary mb-6 group-hover:scale-110 transition-transform">speed</span>
+            <h3 className="font-headline-md text-[24px] leading-8 font-semibold mb-4 text-on-surface">Trọng lượng siêu nhẹ 54g</h3>
+            <p className="font-body-md text-body-md text-on-surface-variant">Thiết kế công thái học tối giản, tối ưu hóa vật liệu để mang lại sự linh hoạt tối đa mà không giảm độ bền.</p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
