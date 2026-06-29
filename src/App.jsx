@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProductAnnotation from './components/ProductAnnotation';
-import CheckoutModal from './components/CheckoutModal'; // Import the modal component
+import CheckoutModal from './components/CheckoutModal';
+import ChatBot from './components/ChatBot'; // Import the ChatBot component
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -149,8 +150,9 @@ function App() {
         </ul>
       </footer>
 
-      {/* Checkout Modal */}
+      {/* Modals and Overlays */}
       <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ChatBot />
 
     </div>
   );
