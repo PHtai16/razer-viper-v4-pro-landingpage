@@ -70,6 +70,9 @@ export default {
         "container-max": "1280px"
       },
       fontFamily: {
+        'sans': ['Inter', 'sans-serif'], // Set default sans-serif font
+        'geist': ['Geist', 'sans-serif'],
+        // The custom font utilities from your design
         "headline-lg-mobile": ["Geist"],
         "label-caps": ["Geist"],
         "body-lg": ["Inter"],
@@ -93,5 +96,6 @@ export default {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/container-queries'),
   ],
 }
