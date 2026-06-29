@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ProductAnnotation from './components/ProductAnnotation';
+import CheckoutModal from './components/CheckoutModal'; // Import the modal component
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-200 font-sans overflow-x-hidden">
       
@@ -12,7 +16,10 @@ function App() {
           <li><a className="text-zinc-400 hover:text-green-500 transition-colors duration-200" href="#specs">Specs</a></li>
           <li><a className="text-zinc-400 hover:text-green-500 transition-colors duration-200" href="#contact">Contact</a></li>
         </ul>
-        <button className="bg-green-500 text-zinc-900 text-sm font-bold px-6 py-2 rounded-md uppercase hover:bg-green-400 transition-colors active:scale-95">
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="bg-green-500 text-zinc-900 text-sm font-bold px-6 py-2 rounded-md uppercase hover:bg-green-400 transition-colors active:scale-95"
+        >
           Mua Ngay
         </button>
       </nav>
@@ -24,22 +31,41 @@ function App() {
             <div className="w-[600px] h-[600px] hero-backglow rounded-full blur-3xl"></div>
           </div>
           <div className="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center">
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 mb-6">
-              RAZER VIPER V4 PRO
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700 mb-6">
+                RAZER VIPER V4 PRO
             </h1>
             <p className="text-lg text-zinc-400 max-w-2xl mb-12">
               Thống trị mọi giải đấu với trọng lượng siêu nhẹ 54g và cảm biến 35K. Sự kết hợp hoàn hảo giữa thiết kế công thái học và công nghệ không dây độ trễ thấp.
             </p>
             <div className="w-full max-w-2xl mb-16 relative">
-              <img alt="Razer Viper V4 Pro" className="w-full h-auto object-contain drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDzK_wvkPPj-trxsXnk4sQsbinlwk5MS1CA_ZK4bR4LsZV2bGtSS7gWE8ZbN5H6CBwvlDPh7ez5yUVlMoxA9gvQdp61YGlPYfGLgHG6BGxfuIv756xroLnPfKjRTL6W-2DI4pnZpNkQHtMPgRvPc6FVTzrFcNHCkJvHTLfJrckx6XJMCRrzPVkb5C-XiAEIQ9Q8-IfDuM7J_uisHLJL1LbLaLf3xiYiFYsxmNNCMZX8FKjxkVvwLmY8ViWuND_KjiozTSBD5EhPYsX" />
+              <video 
+                className="w-full h-auto object-cover drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500 ease-out rounded-xl"
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+              >
+                <source 
+                    src="https://assets2.razerzone.com/images/pnx.assets/21cd6b3b987baf37ce411ffec58be660/razer-viper-v4-pro-video-1920x700.mp4" 
+                    type="video/mp4" 
+                />
+              </video>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-green-500 text-zinc-900 font-bold text-sm px-8 py-4 rounded-md uppercase hover:bg-green-400 transition-colors tracking-widest razer-glow">
+              <button 
+                onClick={() => setIsModalOpen(true)}
+                className="bg-green-500 text-zinc-900 font-bold text-sm px-8 py-4 rounded-md uppercase hover:bg-green-400 transition-colors tracking-widest razer-glow"
+              >
                 Mua Ngay
               </button>
-              <button className="border border-green-500 text-green-500 bg-transparent font-bold text-sm px-8 py-4 rounded-md uppercase hover:bg-green-500/10 transition-colors tracking-widest">
+              <a 
+                href="https://www.razer.com/gaming-mice/razer-viper-v4-pro" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="border border-green-500 text-green-500 bg-transparent font-bold text-sm px-8 py-4 rounded-md uppercase hover:bg-green-500/10 transition-colors tracking-widest inline-flex items-center justify-center"
+              >
                 Xem Chi Tiết
-              </button>
+              </a>
             </div>
           </div>
         </section>
@@ -67,6 +93,9 @@ function App() {
             </div>
           </div>
         </section>
+
+        {/* Product Annotation Section */}
+        <ProductAnnotation />
 
         {/* Specs Section */}
         <section className="py-24 px-6" id="specs">
@@ -119,6 +148,9 @@ function App() {
           <li><a className="text-zinc-500 hover:text-green-500 transition-colors duration-200" href="#">Cookie Settings</a></li>
         </ul>
       </footer>
+
+      {/* Checkout Modal */}
+      <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
     </div>
   );
