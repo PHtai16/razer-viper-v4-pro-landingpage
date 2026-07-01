@@ -14,13 +14,26 @@ export default function ProductAnnotation() {
 
       {/* Phần Hình ảnh tương tác (Lưu ý class "group" ở đây) */}
       <div className="relative w-full max-w-5xl mx-auto group cursor-crosshair">
-        
-        <img 
+
+        {/*
+         * ── TỐI ƯU ẢNH BELOW THE FOLD ──────────────────────────────────
+         * loading="lazy"   : Trình duyệt chỉ tải ảnh khi user cuộn gần đến.
+         *                    Giảm tải mạng lúc khởi động → FCP/LCP tốt hơn.
+         * decoding="async" : Giải mã ảnh trên luồng riêng (off main thread),
+         *                    không block rendering → giảm điểm TBT (Total
+         *                    Blocking Time) và INP trên Mobile.
+         * width/height     : Đặt kích thước để trình duyệt giữ chỗ (CLS = 0).
+         * ────────────────────────────────────────────────────────────── */}
+        <img
           src="https://assets2.razerzone.com/images/pnx.assets/eb5fbd749917af6235780a1bdba7bdac/razer-viper-v4-pro-pointers-760.webp"
-          alt="Razer Viper V4 Pro Shape" 
+          alt="Razer Viper V4 Pro Shape"
           className="w-full h-auto object-contain"
+          loading="lazy"
+          decoding="async"
+          width="760"
+          height="507"
         />
-        
+
         {/* =========================================
             BỘ 3 DẤU CHẤM (Luôn hiện và chớp nháy) 
             ========================================= */}
@@ -28,7 +41,7 @@ export default function ProductAnnotation() {
         <div className="absolute top-[36%] left-[38%] -translate-x-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e] z-20"></div>
         {/* Bề mặt chuột */}
         <div className="absolute top-[66%] left-[55%] -translate-x-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e] z-20"></div>
-        
+
         {/* Chân chuột (Cái chấm) */}
         <div className="absolute top-[88%] left-[73%] -translate-x-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e] z-20"></div>
 
@@ -50,7 +63,7 @@ export default function ProductAnnotation() {
 
         {/* Chân chuột (Đường kẻ và Text) */}
         <div className="absolute top-[88%] left-[5%] w-[68%] -translate-y-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-10">
-          <p className="text-white text-xs md:text-sm font-bold pb-2 text-left pr-4">Chân chuột lớn giúp lướt mượt mà hơn</p>
+          <p className="text-white text-xs md:text-sm font-bold pb-2 text-left pr-4">Feet chuột lớn giúp lướt mượt mà hơn</p>
           <div className="w-full h-[2px] bg-green-500"></div>
         </div>
 
