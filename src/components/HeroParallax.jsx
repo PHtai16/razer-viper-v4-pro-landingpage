@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import heroImage from '../assets/razerv4.jpg'; // Import ảnh cục bộ
+import heroImage from '../assets/razerv4.webp'; // Import ảnh cục bộ
 
 export default function HeroParallax({ onBuyClick }) {
   // ref gắn vào container section — useScroll sẽ đo scroll trong phạm vi này
@@ -50,7 +50,7 @@ export default function HeroParallax({ onBuyClick }) {
           src={heroImage} // Sử dụng ảnh đã import
           alt="Razer Viper V4 Pro"
           className="w-full max-w-2xl h-auto object-contain drop-shadow-2xl"
-          // Ảnh hero là LCP element → KHÔNG lazy load, để trình duyệt ưu tiên
+          fetchPriority="high"
           loading="eager"
           decoding="async"
           width="1024"
