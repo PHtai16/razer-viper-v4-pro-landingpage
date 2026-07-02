@@ -7,7 +7,7 @@ import HeroSection from './components/HeroSection';
 const HeroParallax = lazy(() => import('./components/HeroParallax'));
 const FeaturesSection = lazy(() => import('./components/FeaturesSection'));
 const ProductAnnotation = lazy(() => import('./components/ProductAnnotation'));
-const FeaturesScrollytelling = lazy(() => import('./components/FeaturesScrollytelling'));
+const FeatureScrollytelling = lazy(() => import('./components/FeatureScrollytelling'));
 const SpecsSection = lazy(() => import('./components/SpecsSection'));
 const Newsletter = lazy(() => import('./components/Newsletter'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -26,7 +26,7 @@ export default function App() {
           <HeroParallax />
           <FeaturesSection />
           <ProductAnnotation />
-          <FeaturesScrollytelling />
+          <FeatureScrollytelling />
           <SpecsSection />
           <Newsletter />
           <Footer />
