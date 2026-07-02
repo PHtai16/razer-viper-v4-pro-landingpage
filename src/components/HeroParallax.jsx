@@ -1,21 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import heroImage from '../assets/razerv4.jpg'; // Import ảnh cục bộ
 
-/**
- * HeroParallax
- * ─────────────────────────────────────────────────────────────────────────────
- * Tạo hiệu ứng parallax 2 lớp:
- *   · Lớp ảnh chuột  → cuộn chậm hơn (y: 0 → +120px) — cảm giác "đứng sau"
- *   · Lớp text/nút   → cuộn nhanh hơn (y: 0 → -80px)  — cảm giác "đứng trước"
- *
- * Nguyên lý hoạt động:
- *   useScroll({ target: ref }) đo tiến trình scroll của section (0 → 1).
- *   useTransform() ánh xạ [0, 1] → giá trị px khác nhau cho mỗi lớp.
- *   Sự chênh lệch tốc độ này tạo ảo giác chiều sâu 3D mà không cần CSS 3D.
- *
- * Lắp vào App.jsx: thay <HeroSection /> bằng <HeroParallax />
- * ─────────────────────────────────────────────────────────────────────────────
- */
 export default function HeroParallax({ onBuyClick }) {
   // ref gắn vào container section — useScroll sẽ đo scroll trong phạm vi này
   const containerRef = useRef(null);
@@ -61,7 +47,7 @@ export default function HeroParallax({ onBuyClick }) {
         className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none select-none"
       >
         <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDzK_wvkPPj-trxsXnk4sQsbinlwk5MS1CA_ZK4bR4LsZV2bGtSS7gWE8ZbN5H6CBwvlDPh7ez5yUVlMoxA9gvQdp61YGlPYfGLgHG6BGxfuIv756xroLnPfKjRTL6W-2DI4pnZpNkQHtMPgRvPc6FVTzrFcNHCkJvHTLfJrckx6XJMCRrzPVkb5C-XiAEIQ9Q8-IfDuM7J_uisHLJL1LbLaLf3xiYiFYsxmNNCMZX8FKjxkVvwLmY8ViWuND_KjiozTSBD5EhPYsX"
+          src={heroImage} // Sử dụng ảnh đã import
           alt="Razer Viper V4 Pro"
           className="w-full max-w-2xl h-auto object-contain drop-shadow-2xl"
           // Ảnh hero là LCP element → KHÔNG lazy load, để trình duyệt ưu tiên

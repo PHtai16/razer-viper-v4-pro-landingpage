@@ -1,3 +1,5 @@
+import productImage from '../assets/razer-viper-v4-pro-pointers-760 (1).webp';
+
 export default function ProductAnnotation() {
   return (
     <section className="py-24 px-4 bg-zinc-950 text-center">
@@ -25,7 +27,7 @@ export default function ProductAnnotation() {
          * width/height     : Đặt kích thước để trình duyệt giữ chỗ (CLS = 0).
          * ────────────────────────────────────────────────────────────── */}
         <img
-          src="https://assets2.razerzone.com/images/pnx.assets/eb5fbd749917af6235780a1bdba7bdac/razer-viper-v4-pro-pointers-760.webp"
+          src={productImage}
           alt="Razer Viper V4 Pro Shape"
           className="w-full h-auto object-contain"
           loading="lazy"
