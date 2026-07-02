@@ -1,18 +1,16 @@
 import React from 'react';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="w-full py-stack-gap px-margin-mobile md:px-gutter flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-container-lowest">
-      <div className="font-mono-spec text-mono-spec text-on-surface-variant">
+    <footer className="w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-zinc-900">
+      <div className="text-sm text-zinc-500">
         © 2024 Razer Inc. All rights reserved.
       </div>
-      <ul className="flex flex-wrap justify-center gap-6 font-mono-spec text-mono-spec">
-        <li><a className="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Privacy Policy</a></li>
-        <li><a className="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Terms of Service</a></li>
-        <li><a className="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Cookie Settings</a></li>
+      <ul className="flex flex-wrap justify-center gap-6 text-sm">
+        <li><a className="text-zinc-500 hover:text-green-500 transition-colors duration-200" href="#">Privacy Policy</a></li>
+        <li><a className="text-zinc-500 hover:text-green-500 transition-colors duration-200" href="#">Terms of Service</a></li>
+        <li><a className="text-zinc-500 hover:text-green-500 transition-colors duration-200" href="#">Cookie Settings</a></li>
       </ul>
     </footer>
   );
-};
-
-export default Footer;
+}
