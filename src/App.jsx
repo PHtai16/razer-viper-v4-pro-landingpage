@@ -1,6 +1,7 @@
 import React, { useState, lazy, Suspense } from 'react';
 // HeroParallax: STATIC import — above-the-fold, cần render ngay (quan trọng cho LCP)
 import HeroParallax from './components/HeroParallax';
+import Footer from './components/Footer';
 
 // ── Lazy load tất cả component below-the-fold ──────────────────────────────
 // Trình duyệt chỉ tải chunk này khi component gần vào viewport → giảm main bundle
@@ -89,17 +90,8 @@ function App() {
         </Suspense>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-zinc-900">
-        <div className="text-sm text-zinc-500">
-          © 2024 Razer Inc. All rights reserved.
-        </div>
-        <ul className="flex flex-wrap justify-center gap-6 text-sm">
-          <li><a className="text-zinc-500 hover:text-green-500 transition-colors duration-200" href="#">Privacy Policy</a></li>
-          <li><a className="text-zinc-500 hover:text-green-500 transition-colors duration-200" href="#">Terms of Service</a></li>
-          <li><a className="text-zinc-500 hover:text-green-500 transition-colors duration-200" href="#">Cookie Settings</a></li>
-        </ul>
-      </footer>
+      {/* Footer — 3-column redesign */}
+      <Footer />
 
       {/* Modals and Overlays — Bọc trong Suspense vì dùng React.lazy() */}
       {/* fallback={null}: không hiển thị spinner vì modal mặc định đang ẩn */}
