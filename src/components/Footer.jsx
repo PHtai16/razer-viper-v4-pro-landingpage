@@ -5,7 +5,7 @@ import { User, Phone, Mail, ExternalLink } from 'lucide-react';
 const NAV_LINKS = [
   { label: 'Tính năng nổi bật', href: '#features' },
   { label: 'Thông số kỹ thuật', href: '#specs' },
-  { label: 'Cộng đồng Razer',   href: 'https://insider.razer.com', external: true },
+  { label: 'Cộng đồng Razer', href: 'https://insider.razer.com', external: true },
 ];
 
 // ── Dữ liệu cột 3 (Developer Contact) ───────────────────────────────────────
@@ -139,7 +139,7 @@ export default function Footer() {
           {/* Badge HELICORP */}
           <span className="inline-flex items-center gap-1.5 text-xs text-zinc-600">
             Built by{' '}
-            <span className="text-green-500 font-semibold tracking-wide">HELICORP</span>
+            <span className="text-green-500 font-semibold tracking-wide">Phan Văn Tài</span>
           </span>
         </div>
       </div>
