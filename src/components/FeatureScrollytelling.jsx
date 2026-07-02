@@ -1,4 +1,18 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+
+// ── Hook detect mobile — tái sử dụng, giống HeroParallax ─────────────────────
+function useMobileDetect() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mql.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+  return isMobile;
+}
 
 /**
  * FeatureScrollytelling
@@ -54,13 +68,12 @@ const FEATURES = [
   },
 ];
 
-// ── Variants: định nghĩa trạng thái ban đầu (hidden) và cuối (visible) ────────
-// Tái sử dụng cho cả title, description và card
+// ── Variants: desktop version (giữ nguyên) ──────────────────────────────────
 const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 60,          // bắt đầu dịch xuống 60px
-    scale: 0.97,    // nhỏ hơn 3% — tạo cảm giác "phồng ra" khi xuất hiện
+    y: 60,
+    scale: 0.97,
   },
   visible: {
     opacity: 1,
@@ -69,26 +82,38 @@ const cardVariants = {
   },
 };
 
+// ── Variants: mobile version (loại bỏ scale và giảm y để cải thiện hiệu năng) ──
+const cardVariantsMobile = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
+
 const titleVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 },
 };
 
 // ── Sub-component: Feature Card ───────────────────────────────────────────────
-function FeatureCard({ feature }) {
+function FeatureCard({ feature, isMobile }) {
+  // Mobile: dùng variants đơn giản hơn (không scale), delay ngắn hơn
+  const mobileDelay = feature.delay * 0.5; // giảm cascade delay xuống 50%
+  const activeVariants = isMobile ? cardVariantsMobile : cardVariants;
+
   return (
     <motion.div
-      variants={cardVariants}
+      variants={activeVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: 0.65,
-        delay: feature.delay,
-        ease: [0.25, 0.46, 0.45, 0.94], // cubic-bezier mượt hơn easeOut mặc định
+        duration: isMobile ? 0.45 : 0.65,
+        delay: isMobile ? mobileDelay : feature.delay,
+        ease: [0.25, 0.46, 0.45, 0.94],
       }}
-      // Hover effect dùng framer-motion (nhất quán với animation engine)
-      whileHover={{ y: -6, transition: { duration: 0.2, ease: 'easeOut' } }}
+      // whileHover: chỉ bật trên desktop (touch device không có hover state)
+      {...(!isMobile && {
+        whileHover: { y: -6, transition: { duration: 0.2, ease: 'easeOut' } },
+      })}
       className="relative bg-zinc-900/60 border border-zinc-800 p-8 rounded-xl group cursor-default backdrop-blur-sm overflow-hidden"
     >
       {/* Viền xanh hiện khi hover — transition CSS */}
@@ -127,6 +152,8 @@ function FeatureCard({ feature }) {
 
 // ── Component chính ───────────────────────────────────────────────────────────
 export default function FeatureScrollytelling() {
+  const isMobile = useMobileDetect();
+
   return (
     <section
       id="features"
@@ -140,14 +167,14 @@ export default function FeatureScrollytelling() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ duration: isMobile ? 0.4 : 0.6, ease: 'easeOut' }}
           className="text-center mb-16"
         >
           <motion.span
             initial={{ opacity: 0, scaleX: 0 }}
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            transition={{ duration: isMobile ? 0.3 : 0.5, ease: 'easeOut' }}
             className="inline-block text-green-500 text-xs font-bold tracking-widest uppercase mb-4 origin-left"
           >
             ── Công Nghệ Đỉnh Cao ──
@@ -164,7 +191,7 @@ export default function FeatureScrollytelling() {
         {/* Grid 3 card — mỗi card có delay tăng dần */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {FEATURES.map((feature) => (
-            <FeatureCard key={feature.id} feature={feature} />
+            <FeatureCard key={feature.id} feature={feature} isMobile={isMobile} />
           ))}
         </div>
 

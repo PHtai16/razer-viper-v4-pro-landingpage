@@ -1,31 +1,45 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import heroImage from '../assets/razerv4.webp'; // Import ảnh cục bộ
+import heroImage from '../assets/razerv4.webp';
+
+// ── Hook detect thiết bị mobile ──────────────────────────────────────────────
+// Chạy 1 lần sau mount — không gây re-render khi resize (intentional)
+// Mục tiêu: tắt scroll-linked animations trên mobile để giảm TBT / main-thread work
+function useMobileDetect() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    // matchMedia API: không block main thread, tương thích tốt
+    const mql = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mql.matches);
+    // Cập nhật nếu user xoay màn hình (portrait ↔ landscape)
+    const handler = (e) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+  return isMobile;
+}
 
 export default function HeroParallax({ onBuyClick }) {
+  const isMobile = useMobileDetect();
+
   // ref gắn vào container section — useScroll sẽ đo scroll trong phạm vi này
   const containerRef = useRef(null);
 
+  // useScroll chỉ chạy trên desktop — trên mobile không cần tính toán scroll
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // "start start" = bắt đầu đo khi top section chạm top viewport
-    // "end start"   = kết thúc đo khi bottom section chạm top viewport
     offset: ['start start', 'end start'],
   });
 
-  // Lớp ảnh: cuộn chậm hơn → tạo cảm giác nằm phía sau
-  // Khi progress: 0 → 1, ảnh dịch xuống +150px (cuộn xuống chậm)
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0px', '150px']);
+  // ── Motion values: DESKTOP = scroll-linked, MOBILE = giá trị tĩnh (0px) ──
+  // Khi isMobile=true, các giá trị này không đổi → không có layout recalc liên tục
+  const imageY       = useTransform(scrollYProgress, [0, 1], isMobile ? ['0px', '0px'] : ['0px', '150px']);
+  const glowY        = useTransform(scrollYProgress, [0, 1], isMobile ? ['0px', '0px'] : ['0px', '80px']);
+  const textY        = useTransform(scrollYProgress, [0, 1], isMobile ? ['0px', '0px'] : ['0px', '-100px']);
+  const heroOpacity  = useTransform(scrollYProgress, [0, 0.8], isMobile ? [1, 1]       : [1, 0]);
 
-  // Lớp backglow: di chuyển cùng chiều nhưng chậm hơn ảnh
-  const glowY = useTransform(scrollYProgress, [0, 1], ['0px', '80px']);
-
-  // Lớp text + nút: cuộn nhanh hơn → tạo cảm giác nằm phía trước
-  // Dịch ngược lên -100px khi cuộn xuống → text "vút lên" trước ảnh
-  const textY = useTransform(scrollYProgress, [0, 1], ['0px', '-100px']);
-
-  // Fade out toàn bộ hero khi cuộn gần hết
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  // Animation entry: giảm duration trên mobile để đến trạng thái cuối nhanh hơn
+  const entryDuration = isMobile ? 0.4 : 0.8;
 
   return (
     <motion.section
@@ -47,7 +61,7 @@ export default function HeroParallax({ onBuyClick }) {
         className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none select-none"
       >
         <img
-          src={heroImage} // Sử dụng ảnh đã import
+          src={heroImage}
           alt="Razer Viper V4 Pro"
           className="w-full max-w-2xl h-auto object-contain drop-shadow-2xl"
           fetchPriority="high"
@@ -67,7 +81,7 @@ export default function HeroParallax({ onBuyClick }) {
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: entryDuration, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700 mb-6"
         >
           RAZER VIPER V4 PRO
@@ -76,7 +90,7 @@ export default function HeroParallax({ onBuyClick }) {
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
+          transition={{ duration: entryDuration, delay: isMobile ? 0.1 : 0.15, ease: 'easeOut' }}
           className="text-lg text-zinc-400 max-w-2xl mb-12"
         >
           Thống trị mọi giải đấu với trọng lượng siêu nhẹ 54g và cảm biến 35K.
@@ -86,7 +100,7 @@ export default function HeroParallax({ onBuyClick }) {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+          transition={{ duration: isMobile ? 0.35 : 0.7, delay: isMobile ? 0.15 : 0.3, ease: 'easeOut' }}
           className="flex flex-col sm:flex-row gap-4"
         >
           <button
@@ -110,17 +124,22 @@ export default function HeroParallax({ onBuyClick }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        style={{ opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0]) }}
+        transition={{ delay: isMobile ? 0.6 : 1.2, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
       >
         <span className="text-zinc-500 text-xs tracking-widest uppercase">Cuộn xuống</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
-          className="w-5 h-5 border-b-2 border-r-2 border-green-500 rotate-45"
-        />
+        {/* Mobile: tắt bounce loop (gây re-paint liên tục) — dùng CSS animation thay thế */}
+        {isMobile ? (
+          <div className="w-5 h-5 border-b-2 border-r-2 border-green-500 rotate-45 animate-bounce" />
+        ) : (
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
+            className="w-5 h-5 border-b-2 border-r-2 border-green-500 rotate-45"
+          />
+        )}
       </motion.div>
     </motion.section>
   );
 }
+

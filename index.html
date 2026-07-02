@@ -35,6 +35,20 @@
      <link rel="preconnect" href="https://fonts.googleapis.com" />
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+     <!-- DNS prefetch cho API bên thứ 3: giảm latency khi user tương tác lần đầu -->
+     <link rel="dns-prefetch" href="https://api.groq.com" />
+     <link rel="dns-prefetch" href="https://api.emailjs.com" />
+     <link rel="dns-prefetch" href="https://discord.com" />
+
+     <!-- Preload hero image: trình duyệt tải ngay, không cần chờ JS parse xong -->
+     <!-- Đây là kỹ thuật quan trọng nhất để cải thiện LCP trên Mobile -->
+     <link
+          rel="preload"
+          as="image"
+          href="/src/assets/razerv4.webp"
+          fetchpriority="high"
+     />
+
      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" media="print" onload="this.media='all'" />
 

@@ -1,12 +1,26 @@
 import React, { useState, lazy, Suspense } from 'react';
-import ProductAnnotation from './components/ProductAnnotation';
-import ScrollToast from './components/ScrollToast';
+// HeroParallax: STATIC import — above-the-fold, cần render ngay (quan trọng cho LCP)
 import HeroParallax from './components/HeroParallax';
-import FeatureScrollytelling from './components/FeatureScrollytelling';
-import Newsletter from './components/Newsletter';
 
+// ── Lazy load tất cả component below-the-fold ──────────────────────────────
+// Trình duyệt chỉ tải chunk này khi component gần vào viewport → giảm main bundle
+const FeatureScrollytelling = lazy(() => import('./components/FeatureScrollytelling'));
+const ProductAnnotation     = lazy(() => import('./components/ProductAnnotation'));
+const Newsletter            = lazy(() => import('./components/Newsletter'));
+const ScrollToast           = lazy(() => import('./components/ScrollToast'));
+// Modals: đã lazy từ trước, giữ nguyên
 const CheckoutModal = lazy(() => import('./components/CheckoutModal'));
-const ChatBot = lazy(() => import('./components/ChatBot'));
+const ChatBot       = lazy(() => import('./components/ChatBot'));
+
+// Skeleton fallback nhẹ — giữ chiều cao để tránh CLS (Cumulative Layout Shift)
+const SectionSkeleton = ({ height = '400px' }) => (
+  <div
+    style={{ minHeight: height }}
+    className="w-full bg-zinc-900/40 animate-pulse"
+    aria-hidden="true"
+  />
+);
+
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,13 +48,17 @@ function App() {
         {/* Hero Section — Parallax */}
         <HeroParallax onBuyClick={() => setIsModalOpen(true)} />
 
-        {/* Features Section — Scrollytelling */}
-        <FeatureScrollytelling />
+        {/* Features Section — Scrollytelling (lazy: chỉ load khi gần viewport) */}
+        <Suspense fallback={<SectionSkeleton height="600px" />}>
+          <FeatureScrollytelling />
+        </Suspense>
 
-        {/* Product Annotation Section */}
-        <ProductAnnotation />
+        {/* Product Annotation Section (lazy) */}
+        <Suspense fallback={<SectionSkeleton height="500px" />}>
+          <ProductAnnotation />
+        </Suspense>
 
-        {/* Specs Section */}
+        {/* Specs Section — inline, không lazy vì nhẹ và không dùng framer-motion */}
         <section className="py-24 px-6" id="specs">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl lg:text-5xl font-bold mb-12 border-l-4 border-green-500 pl-4">Thông Số Kỹ Thuật</h2>
@@ -65,8 +83,10 @@ function App() {
           </div>
         </section>
 
-        {/* Newsletter Section — EmailJS + Discord Webhook */}
-        <Newsletter />
+        {/* Newsletter Section (lazy) */}
+        <Suspense fallback={<SectionSkeleton height="300px" />}>
+          <Newsletter />
+        </Suspense>
       </main>
 
       {/* Footer */}
@@ -90,8 +110,10 @@ function App() {
         <ChatBot />
       </Suspense>
 
-      {/* Scroll Toast — Hiện khi user cuộn qua 70% trang */}
-      <ScrollToast />
+      {/* Scroll Toast — lazy: chỉ cần khi user cuộn 70% trang */}
+      <Suspense fallback={null}>
+        <ScrollToast />
+      </Suspense>
 
     </div>
   );
