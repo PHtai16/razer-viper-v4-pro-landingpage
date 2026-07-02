@@ -8,15 +8,4 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-
-  build: {
-    minify: 'esbuild',
-    assetsInlineLimit: 4096,
-    chunkSizeWarningLimit: 1600, // Tăng lên 1600 để chặn cảnh báo vàng rác mắt
-  },
-
-  esbuild: {
-    // Tự động xóa sạch các dòng console.log khi build lên mạng
-    drop: ['console', 'debugger'],
-  },
 })
